@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
+import { Button, Grid, Card, Stack } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import { getErrorMessage } from "../helper/error/index";
@@ -24,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: 40,
     right: 40,
-    backgroundColor: 'white',
-    color: theme.color.turquoise
+    backgroundColor: "white",
+    color: theme.color.turquoise,
   },
 }));
 
@@ -159,8 +158,19 @@ const Shift = () => {
             ) : (
               <></>
             )}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={2}
+            >
+              <Box>Date</Box>
+              <Box>
+                <Button variant="text">Text</Button>
+                <Button variant="outlined">Outlined</Button>
+              </Box>
+            </Stack>
             <DataTable
-              title="Shifts"
               columns={columns}
               data={rows}
               pagination
