@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "start": "NODE_ENV=production node ./dist/src/index.js",
-    "dev": "NODE_ENV=development nodemon",
+    "dev": "nodemon",
     "test": "jest",
     "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "migrate:create": "ts-node ./node_modules/typeorm/cli.js migration:create",
@@ -24,7 +24,7 @@
     "date-fns": "^2.28.0",
     "dotenv": "^8.6.0",
     "hapi-cors": "^1.0.3",
-    "hapi-swagger": "^14.2.4",
+    "hapi-swagger": "^14.2.5",
     "joi": "^17.5.0",
     "pg": "^8.7.1",
     "qs": "^6.10.2",
