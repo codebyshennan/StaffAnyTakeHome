@@ -1,9 +1,13 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Button, Grid, Card, Stack } from "@material-ui/core";
+import { Button, Grid, Card, Box } from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import { getErrorMessage } from "../helper/error/index";
-import { deleteShiftById, getShifts } from "../helper/api/shift";
+import {
+  deleteShiftById,
+  getShifts,
+  getShiftsByDateRange,
+} from "../helper/api/shift";
 import DataTable from "react-data-table-component";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -24,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     bottom: 40,
     right: 40,
     backgroundColor: "white",
+    color: theme.color.turquoise,
+  },
+  button: {
+    margin: theme.spacing(1),
     color: theme.color.turquoise,
   },
 }));
@@ -75,12 +83,30 @@ const Shift = () => {
     setShowDeleteConfirm(false);
   };
 
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       setErrMsg("");
+  //       const { results } = await getShifts();
+  //       setRows(results);
+  //     } catch (error) {
+  //       const message = getErrorMessage(error);
+  //       setErrMsg(message);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   getData();
+  // }, []);
+
   useEffect(() => {
     const getData = async () => {
       try {
         setIsLoading(true);
         setErrMsg("");
-        const { results } = await getShifts();
+        const { results } = await getShiftsByDateRange();
         setRows(results);
       } catch (error) {
         const message = getErrorMessage(error);
@@ -158,18 +184,29 @@ const Shift = () => {
             ) : (
               <></>
             )}
-            <Stack
-              direction="row"
+            <Box
+              display="flex"
               justifyContent="space-between"
               alignItems="center"
-              spacing={2}
             >
-              <Box>Date</Box>
               <Box>
-                <Button variant="text">Text</Button>
-                <Button variant="outlined">Outlined</Button>
+                <Button variant="contained" className={classes.button}>
+                  {"<"}
+                </Button>
+                date range
+                <Button variant="contained" className={classes.button}>
+                  {">"}
+                </Button>
               </Box>
-            </Stack>
+              <Box display="flex">
+                <Button variant="outlined" className={classes.button}>
+                  ADD SHIFT
+                </Button>
+                <Button variant="contained" disabled className={classes.button}>
+                  PUBLISH
+                </Button>
+              </Box>
+            </Box>
             <DataTable
               columns={columns}
               data={rows}
